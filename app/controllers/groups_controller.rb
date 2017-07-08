@@ -1,7 +1,6 @@
 class GroupsController < ApplicationController
-  before_action :authenticate_user! ,only: [:new, :create, :edit, :update, :destroy]
-  before_avtion :find_group_and_check_permission, only: [:edit; :update; :destroy]
-
+    before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destroy]
+    before_action :find_group_and_check_permission, only: [:edit, :update, :destroy]
   def index
     @groups = Group.all
   end
@@ -30,20 +29,18 @@ class GroupsController < ApplicationController
   end
 
   def update
-
     if @group.update(group_params)
-      redirect_to groups_path, notice: "上传成功"
+      redirect_to groups_path, notice: "Update Success"
     else
       render :edit
     end
   end
 
-    def destroy
-      
-      @group.destroy
-      flash[:alert] = "删除成功"
-      redirect_to groups_path
-    end
+  def destroy
+    @group.destroy
+    redirect_to groups_path, alert: "Group deleted"
+  end
+
 
   private
 
